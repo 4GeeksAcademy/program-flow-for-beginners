@@ -7,6 +7,8 @@
 !README.es.md
 !.vscode
 !.github
+!.devcontainer
+!.devcontainer/**
 !/tests
 !/tests/**
 
