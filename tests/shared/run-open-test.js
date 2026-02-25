@@ -21,7 +21,7 @@ function loadAnswer(exerciseDir) {
   if (fs.existsSync(jsPath)) {
     const js = fs.readFileSync(jsPath, "utf8");
     // Prefer the actual exercise payload instead of any template in comments.
-    const template = js.match(/const\s+answer\s*=\s*`([\s\S]*?)`\s*;?/);
+    const template = js.match(/(?:^|\r?\n)\s*const\s+answer\s*=\s*`([\s\S]*?)`\s*;?/);
     if (template && template[1] && template[1].trim()) return template[1].trim();
     const extracted = extractMermaidFromMarkdown(js);
     if (extracted) return extracted;
