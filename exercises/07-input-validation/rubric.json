@@ -1,0 +1,38 @@
+{
+    "required_nodes":  [
+                           "start",
+                           "input",
+                           "valid",
+                           "invalid",
+                           "end"
+                       ],
+    "required_edges":  [
+                           [
+                               "A",
+                               "B"
+                           ],
+                           [
+                               "B",
+                               "C"
+                           ],
+                           [
+                               "C",
+                               "B"
+                           ],
+                           [
+                               "C",
+                               "D"
+                           ]
+                       ],
+    "required_conditions":  [
+                                "valid",
+                                "invalid"
+                            ],
+    "forbidden_patterns":  [
+
+                           ],
+    "min_steps":  4,
+    "accepted_synonyms":  {
+
+                          }
+}

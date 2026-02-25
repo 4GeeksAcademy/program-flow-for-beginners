@@ -1,0 +1,12 @@
+{
+  "start": ["start", "inicio", "comienzo", "begin"],
+  "end": ["end", "fin", "termina", "stop"],
+  "home": ["home", "casa", "hogar"],
+  "yes": ["yes", "si", "true"],
+  "no": ["no", "false"],
+  "input": ["input", "entrada", "ingreso"],
+  "output": ["output", "salida", "resultado"],
+  "valid": ["valid", "valido", "correcto"],
+  "invalid": ["invalid", "invalido", "incorrecto"],
+  "loop": ["loop", "bucle", "ciclo"]
+}

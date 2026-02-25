@@ -1,0 +1,15 @@
+﻿# Ignore everything
+/*
+
+!.gitignore
+!learn.json
+!README.md
+!README.es.md
+!.vscode
+!.github
+!/tests
+!/tests/**
+
+!/exercises
+!/exercises/*
+!/exercises/**

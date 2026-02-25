@@ -1,0 +1,44 @@
+{
+  "slug": "program-flow-for-beginners",
+  "duration": 4,
+  "difficulty": "easy",
+  "title": {
+    "us": "Program Flow for Beginners",
+    "es": "Flujo de Programacion para Principiantes"
+  },
+  "description": {
+    "us": "10 Mermaid-based flow exercises to practice core programming logic with isolated auto-evaluation and progressive difficulty.",
+    "es": "10 ejercicios de flujo basados en Mermaid para practicar la logica esencial de programacion con autoevaluacion aislada y dificultad progresiva."
+  },
+  "projectType": "tutorial",
+  "template_url": "self",
+  "autoPlay": true,
+  "technologies": [
+    "programming logic",
+    "control flow",
+    "if else",
+    "loops",
+    "flowcharts",
+    "mermaid"
+  ],
+  "videoSolutions": false,
+  "bugsLink": "https://github.com/learnpack/learnpack/issues/new",
+  "graded": true,
+  "grading": "isolated",
+  "localhostOnly": true,
+  "editor": {
+    "version": "5.0",
+    "agent": "vscode",
+    "mode": "extension"
+  },
+  "entries": {
+    "node": "app.js"
+  },
+  "delivery": {
+    "formats": [
+      "no_delivery"
+    ]
+  }
+}
+
+

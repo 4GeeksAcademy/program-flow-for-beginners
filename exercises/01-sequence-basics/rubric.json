@@ -1,0 +1,31 @@
+{
+    "required_nodes":  [
+                           "start",
+                           "end"
+                       ],
+    "required_edges":  [
+                           [
+                               "A",
+                               "B"
+                           ],
+                           [
+                               "B",
+                               "C"
+                           ],
+                           [
+                               "C",
+                               "D"
+                           ]
+                       ],
+    "required_conditions":  [
+
+                            ],
+    "forbidden_patterns":  [
+                               "while",
+                               "for"
+                           ],
+    "min_steps":  3,
+    "accepted_synonyms":  {
+
+                          }
+}

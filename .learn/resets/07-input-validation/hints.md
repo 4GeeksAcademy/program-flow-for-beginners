@@ -1,0 +1,3 @@
+﻿- Define clear node labels in EN or ES.
+- Keep the flow logically complete from start to end.
+- Include decision labels when branching (yes/no, valid/invalid).
