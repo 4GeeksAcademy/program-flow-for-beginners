@@ -38,7 +38,35 @@
     "formats": [
       "no_delivery"
     ]
-  }
+  },
+  "translations": [
+    "es",
+    "en"
+  ],
+  "talents": [
+    {
+      "badge": "html-developer",
+      "points": 6
+    },
+    {
+      "badge": "css-developer",
+      "points": 3
+    },
+    {
+      "badge": "seo-expert",
+      "points": 5
+    },
+    {
+      "badge": "accessibility-expert",
+      "points": 5
+    },
+    {
+      "badge": "responsive-designer",
+      "points": 5
+    },
+    {
+      "badge": "performance-optimizer",
+      "points": 5
+    }
+  ]
 }
-
-
