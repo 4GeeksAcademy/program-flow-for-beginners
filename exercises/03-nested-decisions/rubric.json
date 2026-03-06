@@ -22,6 +22,18 @@
                            [
                                "D",
                                "E"
+                           ],
+                           [
+                               "C",
+                               "F"
+                           ],
+                           [
+                               "D",
+                               "F"
+                           ],
+                           [
+                               "E",
+                               "F"
                            ]
                        ],
     "required_conditions":  [
@@ -31,7 +43,7 @@
     "forbidden_patterns":  [
 
                            ],
-    "min_steps":  4,
+    "min_steps":  7,
     "accepted_synonyms":  {
 
                           }

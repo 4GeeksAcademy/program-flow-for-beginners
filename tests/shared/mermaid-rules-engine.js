@@ -1,18 +1,39 @@
-﻿const { normalizeText, buildAliasMap, canonicalizeLabel } = require("./normalize");
+const { normalizeText, buildAliasMap, canonicalizeLabel } = require("./normalize");
+
+function stripWrappedQuotes(value) {
+  return String(value || "")
+    .trim()
+    .replace(/^["']/, "")
+    .replace(/["']$/, "");
+}
 
 function extractEdges(mermaid) {
   const edges = [];
   const lines = String(mermaid || "").split(/\r?\n/);
-  const nodeRef = "([A-Za-z0-9_]+)(?:\\[[^\\]]*\\]|\\([^\\)]*\\)|\\{[^\\}]*\\})?";
-  const edgeRegex = new RegExp(`^${nodeRef}\\s*--(?:\\|([^|]+)\\|)?\\s*>\\s*${nodeRef}`);
+  const nodeRef = "([A-Za-z0-9_]+)(?:\\(\\([^\\)]*\\)\\)|\\(\\[[^\\]]*\\]\\)|\\[[^\\]]*\\]|\\([^\\)]*\\)|\\{[^\\}]*\\})?";
+  const edgeWithPreLabel = new RegExp(`^${nodeRef}\\s*--\\|([^|]+)\\|-->\\s*${nodeRef}\\s*;?$`);
+  const edgeWithPostLabel = new RegExp(`^${nodeRef}\\s*-->\\|([^|]+)\\|\\s*${nodeRef}\\s*;?$`);
+  const edgePlain = new RegExp(`^${nodeRef}\\s*-->\\s*${nodeRef}\\s*;?$`);
 
   lines.forEach((line) => {
     const clean = line.trim();
     if (!clean || clean.startsWith("flowchart") || clean.startsWith("graph")) return;
 
-    const match = clean.match(edgeRegex);
+    let match = clean.match(edgeWithPreLabel);
     if (match) {
       edges.push({ from: match[1], condition: normalizeText(match[2] || ""), to: match[3] });
+      return;
+    }
+
+    match = clean.match(edgeWithPostLabel);
+    if (match) {
+      edges.push({ from: match[1], condition: normalizeText(match[2] || ""), to: match[3] });
+      return;
+    }
+
+    match = clean.match(edgePlain);
+    if (match) {
+      edges.push({ from: match[1], condition: "", to: match[2] });
     }
   });
 
@@ -21,10 +42,11 @@ function extractEdges(mermaid) {
 
 function extractNodeLabels(mermaid, aliasMap) {
   const labelMap = {};
-  const regex = /([A-Za-z0-9_]+)\s*\[(.*?)\]/g;
+  const regex = /([A-Za-z0-9_]+)\s*(?:\(\(([^)]*)\)\)|\(\[([^\]]*)\]\)|\[([^\]]*)\]|\(([^)]*)\)|\{([^}]*)\})/g;
   let match;
   while ((match = regex.exec(String(mermaid || ""))) !== null) {
-    labelMap[match[1]] = canonicalizeLabel(match[2], aliasMap);
+    const rawLabel = [match[2], match[3], match[4], match[5], match[6]].find((v) => typeof v === "string") || "";
+    labelMap[match[1]] = canonicalizeLabel(stripWrappedQuotes(rawLabel), aliasMap);
   }
   return labelMap;
 }
@@ -37,19 +59,34 @@ function validateMermaidAnswer(userAnswer, rubric, globalSynonyms) {
   const canonicalNodes = new Set(Object.values(nodeLabels));
   const edgePairs = edges.map((e) => `${e.from}->${e.to}`);
   const conditions = edges.map((e) => e.condition).filter(Boolean);
+  const uniqueConditions = new Set(conditions);
+  const uniqueNodeIds = new Set([
+    ...Object.keys(nodeLabels),
+    ...edges.map((e) => e.from),
+    ...edges.map((e) => e.to)
+  ]);
   const normalizedAnswer = normalizeText(userAnswer);
+  const languageIndependent = rubric.language_independent !== false;
 
-  const missingNodes = (rubric.required_nodes || []).filter(
+  let missingNodes = (rubric.required_nodes || []).filter(
     (node) => !canonicalNodes.has(canonicalizeLabel(node, aliasMap))
   );
+  if (languageIndependent && missingNodes.length) {
+    const minimumNodes = Number((rubric.required_nodes || []).length);
+    if (uniqueNodeIds.size >= minimumNodes) missingNodes = [];
+  }
 
   const missingEdges = (rubric.required_edges || []).filter(
     (pair) => !edgePairs.includes(`${pair[0]}->${pair[1]}`)
   );
 
-  const missingConditions = (rubric.required_conditions || []).filter(
+  let missingConditions = (rubric.required_conditions || []).filter(
     (condition) => !conditions.includes(normalizeText(condition))
   );
+  if (languageIndependent && missingConditions.length) {
+    const minimumConditions = Number((rubric.required_conditions || []).length);
+    if (uniqueConditions.size >= minimumConditions) missingConditions = [];
+  }
 
   const forbiddenHits = (rubric.forbidden_patterns || []).filter((pattern) =>
     normalizedAnswer.includes(normalizeText(pattern))

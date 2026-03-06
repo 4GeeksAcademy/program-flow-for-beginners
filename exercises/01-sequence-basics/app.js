@@ -1,4 +1,4 @@
-﻿/*
+/*
 Edit only the Mermaid flow inside `answer`.
 Keep this shape: const answer = `...`; module.exports = answer.trim();
 ---
