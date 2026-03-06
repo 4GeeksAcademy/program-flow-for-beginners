@@ -8,9 +8,9 @@ Edit only `app.js` inside each exercise folder.
 
 ## Workflow
 
-1. Use any external Mermaid tool you prefer (for example, Mermaid Live Editor or draw.io).
-2. Generate the diagram there.
-3. Copy and paste the Mermaid code into `app.js`.
+1. Use this tool created by a 4Geeks graduate student: https://waficmikati.github.io/mermaid/
+2. Build your diagram there.
+3. Copy and paste the Mermaid code into pp.js.
 
 ## :bulb: Hint
 - You do not need to master Mermaid syntax in this tutorial.

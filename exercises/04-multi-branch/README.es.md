@@ -4,7 +4,7 @@ Escenario: Control de semaforo. Segun el color (verde, amarillo, rojo), elige la
 
 ## :memo: Instrucciones
 1. Abre `app.js` en esta carpeta del ejercicio.
-2. Escribe o pega tu flujo Mermaid dentro del template string.
+2. Usa la app https://waficmikati.github.io/mermaid/ para crear tu diagrama Mermaid.
 3. Manten los ids de nodos (`A`, `B`, `C`, ...) y las conexiones segun la rubrica.
 4. No renombres `answer` ni `module.exports` en `app.js`.
 

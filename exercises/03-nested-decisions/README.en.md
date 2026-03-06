@@ -4,7 +4,7 @@ Scenario: Car rental. A person can rent only if they are 21+ and have a valid dr
 
 ## :memo: Instructions
 1. Open `app.js` in this exercise folder.
-2. Write or paste your Mermaid flow inside the template string.
+2. Use the app https://waficmikati.github.io/mermaid/ to create your Mermaid diagram.
 3. Keep node ids (`A`, `B`, `C`, ...) and edges aligned with the rubric requirements.
 4. Do not rename `answer` or `module.exports` in `app.js`.
 
