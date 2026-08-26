@@ -1,9 +1,11 @@
 {
+    "rubric_version": 2,
+    "strict_edges": false,
     "required_nodes":  [
                            "start",
                            "input",
                            "valid",
-                           "home",
+                           "invalid",
                            "end"
                        ],
     "required_edges":  [
@@ -28,23 +30,57 @@
                                "F"
                            ],
                            [
-                               "D",
-                               "F"
+                               "F",
+                               "D"
                            ],
                            [
-                               "E",
-                               "F"
+                               "F",
+                               "G"
+                           ],
+                           [
+                               "G",
+                               "E"
                            ]
                        ],
     "required_conditions":  [
                                 "yes",
                                 "no"
                             ],
+    "required_paths": [
+                           [
+                               "A",
+                               "E"
+                           ],
+                           [
+                               "C",
+                               "F",
+                               "D"
+                           ],
+                           [
+                               "F",
+                               "G",
+                               "E"
+                           ]
+                       ],
     "forbidden_patterns":  [
 
                            ],
-    "min_steps":  7,
+    "min_steps":  8,
     "accepted_synonyms":  {
-
+                              "input": [
+                                  "age",
+                                  "edad"
+                              ],
+                              "valid": [
+                                  "approved",
+                                  "approved: can rent",
+                                  "can rent"
+                              ],
+                              "invalid": [
+                                  "reject",
+                                  "rejected",
+                                  "denied",
+                                  "no rental"
+                              ]
                           }
 }

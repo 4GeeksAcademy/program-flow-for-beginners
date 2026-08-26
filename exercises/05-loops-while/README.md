@@ -6,7 +6,7 @@ Password login. Keep asking for password while it is incorrect; when correct, gr
 ## :memo: Instructions
 1. Open `app.js` in this exercise folder.
 2. Use this **[Mermaid Editor](https://waficmikati.github.io/mermaid/)** to create your diagram.
-3. Keep node ids (`A`, `B`, `C`, ...) and edges aligned with the rubric requirements.
+3. Keep core nodes and branch conditions aligned with the rubric; equivalent edge layouts are accepted when flow logic is preserved.
 4. Do not rename `answer` or `module.exports` in `app.js`.
 
 ## :bulb: Hint

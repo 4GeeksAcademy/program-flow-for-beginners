@@ -1,4 +1,6 @@
 {
+    "rubric_version": 2,
+    "strict_edges": false,
     "required_nodes":  [
                            "start",
                            "input",
@@ -21,22 +23,47 @@
                            ],
                            [
                                "D",
+                               "E"
+                           ],
+                           [
+                               "E",
                                "C"
                            ],
                            [
                                "C",
-                               "E"
+                               "F"
+                           ],
+                           [
+                               "F",
+                               "G"
                            ]
                        ],
     "required_conditions":  [
                                 "yes",
                                 "no"
                             ],
+    "required_paths": [
+                           [
+                               "A",
+                               "G"
+                           ]
+                       ],
+    "required_cycles": [
+                            [
+                                "C",
+                                "D",
+                                "E"
+                            ]
+                        ],
     "forbidden_patterns":  [
 
                            ],
-    "min_steps":  5,
+    "min_steps":  7,
     "accepted_synonyms":  {
-
+                              "input": [
+                                  "tasks list",
+                                  "task list",
+                                  "lista de tareas"
+                              ]
                           }
 }

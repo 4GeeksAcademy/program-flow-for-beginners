@@ -1,5 +1,89 @@
 const { normalizeText, buildAliasMap, canonicalizeLabel } = require("./normalize");
 
+function buildAdjacency(edges) {
+  const adjacency = new Map();
+  edges.forEach((edge) => {
+    if (!adjacency.has(edge.from)) adjacency.set(edge.from, new Set());
+    adjacency.get(edge.from).add(edge.to);
+  });
+  return adjacency;
+}
+
+function hasReachablePath(adjacency, from, to) {
+  if (!from || !to) return false;
+  if (from === to) {
+    const next = adjacency.get(from);
+    if (next && next.has(from)) return true;
+  }
+
+  const visited = new Set();
+  const queue = [from];
+  visited.add(from);
+
+  while (queue.length) {
+    const current = queue.shift();
+    const next = adjacency.get(current);
+    if (!next) continue;
+
+    for (const candidate of next) {
+      if (candidate === to) return true;
+      if (!visited.has(candidate)) {
+        visited.add(candidate);
+        queue.push(candidate);
+      }
+    }
+  }
+
+  return false;
+}
+
+function validatePathRule(rule, adjacency) {
+  if (Array.isArray(rule)) {
+    if (rule.length < 2) return true;
+    for (let i = 0; i < rule.length - 1; i += 1) {
+      if (!hasReachablePath(adjacency, rule[i], rule[i + 1])) return false;
+    }
+    return true;
+  }
+
+  if (rule && typeof rule === "object") {
+    const via = Array.isArray(rule.via) ? rule.via : [];
+    const points = [rule.from, ...via, rule.to].filter(Boolean);
+    if (points.length < 2) return true;
+    for (let i = 0; i < points.length - 1; i += 1) {
+      if (!hasReachablePath(adjacency, points[i], points[i + 1])) return false;
+    }
+    return true;
+  }
+
+  return true;
+}
+
+function validateCycleRule(rule, adjacency) {
+  if (typeof rule === "string") return hasReachablePath(adjacency, rule, rule);
+
+  if (Array.isArray(rule)) {
+    if (rule.length < 2) return true;
+    for (let i = 0; i < rule.length; i += 1) {
+      const from = rule[i];
+      const to = rule[(i + 1) % rule.length];
+      if (!hasReachablePath(adjacency, from, to)) return false;
+    }
+    return true;
+  }
+
+  if (rule && typeof rule === "object") {
+    const nodes = Array.isArray(rule.nodes) ? rule.nodes : [];
+    return validateCycleRule(nodes, adjacency);
+  }
+
+  return true;
+}
+
+function normalizeEdgePair(pair) {
+  return Array.isArray(pair) && pair.length >= 2 ? `${pair[0]}->${pair[1]}` : null;
+}
+
 function stripWrappedQuotes(value) {
   return String(value || "")
     .trim()
@@ -55,11 +139,13 @@ function validateMermaidAnswer(userAnswer, rubric, globalSynonyms) {
   const aliasMap = buildAliasMap(globalSynonyms, rubric.accepted_synonyms || {});
   const edges = extractEdges(userAnswer);
   const nodeLabels = extractNodeLabels(userAnswer, aliasMap);
+  const adjacency = buildAdjacency(edges);
 
   const canonicalNodes = new Set(Object.values(nodeLabels));
   const edgePairs = edges.map((e) => `${e.from}->${e.to}`);
+  const edgePairSet = new Set(edgePairs);
   const conditions = edges.map((e) => e.condition).filter(Boolean);
-  const uniqueConditions = new Set(conditions);
+  const canonicalConditions = conditions.map((condition) => canonicalizeLabel(condition, aliasMap));
   const uniqueNodeIds = new Set([
     ...Object.keys(nodeLabels),
     ...edges.map((e) => e.from),
@@ -67,6 +153,10 @@ function validateMermaidAnswer(userAnswer, rubric, globalSynonyms) {
   ]);
   const normalizedAnswer = normalizeText(userAnswer);
   const languageIndependent = rubric.language_independent !== false;
+  const rubricVersion = Number(rubric.rubric_version || 1);
+  const strictEdges = typeof rubric.strict_edges === "boolean"
+    ? rubric.strict_edges
+    : rubricVersion < 2;
 
   let missingNodes = (rubric.required_nodes || []).filter(
     (node) => !canonicalNodes.has(canonicalizeLabel(node, aliasMap))
@@ -76,17 +166,29 @@ function validateMermaidAnswer(userAnswer, rubric, globalSynonyms) {
     if (uniqueNodeIds.size >= minimumNodes) missingNodes = [];
   }
 
-  const missingEdges = (rubric.required_edges || []).filter(
-    (pair) => !edgePairs.includes(`${pair[0]}->${pair[1]}`)
+  const missingEdges = strictEdges
+    ? (rubric.required_edges || []).filter((pair) => !edgePairSet.has(`${pair[0]}->${pair[1]}`))
+    : [];
+
+  const alternativeEdgeSets = Array.isArray(rubric.any_of_edge_sets) ? rubric.any_of_edge_sets : [];
+  const alternativeEdgeSetsValid = alternativeEdgeSets.length === 0 || alternativeEdgeSets.some((edgeSet) =>
+    Array.isArray(edgeSet) && edgeSet.every((pair) => {
+      const normalized = normalizeEdgePair(pair);
+      return normalized ? edgePairSet.has(normalized) : true;
+    })
   );
 
-  let missingConditions = (rubric.required_conditions || []).filter(
-    (condition) => !conditions.includes(normalizeText(condition))
+  const requiredPaths = Array.isArray(rubric.required_paths) ? rubric.required_paths : [];
+  const missingPaths = requiredPaths.filter((rule) => !validatePathRule(rule, adjacency));
+
+  const requiredCycles = Array.isArray(rubric.required_cycles) ? rubric.required_cycles : [];
+  const missingCycles = requiredCycles.filter((rule) => !validateCycleRule(rule, adjacency));
+
+  const expectedConditions = (rubric.required_conditions || []).map((condition) =>
+    canonicalizeLabel(condition, aliasMap)
   );
-  if (languageIndependent && missingConditions.length) {
-    const minimumConditions = Number((rubric.required_conditions || []).length);
-    if (uniqueConditions.size >= minimumConditions) missingConditions = [];
-  }
+  const presentConditions = new Set(canonicalConditions);
+  const missingConditions = expectedConditions.filter((condition) => !presentConditions.has(condition));
 
   const forbiddenHits = (rubric.forbidden_patterns || []).filter((pattern) =>
     normalizedAnswer.includes(normalizeText(pattern))
@@ -98,6 +200,9 @@ function validateMermaidAnswer(userAnswer, rubric, globalSynonyms) {
   const errors = [];
   if (missingNodes.length) errors.push(`Missing required nodes: ${missingNodes.join(", ")}`);
   if (missingEdges.length) errors.push(`Missing required edges: ${missingEdges.map((e) => `${e[0]}->${e[1]}`).join(", ")}`);
+  if (!alternativeEdgeSetsValid) errors.push("Missing one valid alternative edge set from any_of_edge_sets.");
+  if (missingPaths.length) errors.push(`Missing required paths: ${missingPaths.length}`);
+  if (missingCycles.length) errors.push(`Missing required cycles: ${missingCycles.length}`);
   if (missingConditions.length) errors.push(`Missing required conditions: ${missingConditions.join(", ")}`);
   if (forbiddenHits.length) errors.push(`Forbidden patterns detected: ${forbiddenHits.join(", ")}`);
   if (stepError) errors.push(stepError);

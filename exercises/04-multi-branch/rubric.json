@@ -1,4 +1,6 @@
 {
+    "rubric_version": 2,
+    "strict_edges": false,
     "required_nodes":  [
                            "start",
                            "input",
@@ -16,23 +18,73 @@
                                "C"
                            ],
                            [
-                               "B",
+                               "C",
                                "D"
                            ],
                            [
                                "C",
                                "E"
+                           ],
+                           [
+                               "C",
+                               "F"
+                           ],
+                           [
+                               "D",
+                               "G"
+                           ],
+                           [
+                               "E",
+                               "G"
+                           ],
+                           [
+                               "F",
+                               "G"
                            ]
                        ],
     "required_conditions":  [
-                                "yes",
-                                "no"
+                                "green",
+                                "yellow",
+                                "red"
                             ],
+    "required_paths": [
+                           [
+                               "A",
+                               "G"
+                           ],
+                           [
+                               "C",
+                               "D",
+                               "G"
+                           ],
+                           [
+                               "C",
+                               "E",
+                               "G"
+                           ],
+                           [
+                               "C",
+                               "F",
+                               "G"
+                           ]
+                       ],
     "forbidden_patterns":  [
 
                            ],
-    "min_steps":  4,
+    "min_steps":  7,
     "accepted_synonyms":  {
-
+                              "input": [
+                                  "color",
+                                  "color selected?"
+                              ],
+                              "green": [
+                                  "verde"
+                              ],
+                              "yellow": [
+                                  "amarillo"
+                              ],
+                              "red": [
+                                  "rojo"
+                              ]
                           }
 }

@@ -1,4 +1,6 @@
 {
+    "rubric_version": 2,
+    "strict_edges": false,
     "required_nodes":  [
                            "start",
                            "input",
@@ -17,26 +19,46 @@
                            ],
                            [
                                "C",
-                               "B"
-                           ],
-                           [
-                               "C",
                                "D"
                            ],
                            [
                                "D",
+                               "B"
+                           ],
+                           [
+                               "C",
                                "E"
+                           ],
+                           [
+                               "E",
+                               "F"
                            ]
                        ],
     "required_conditions":  [
                                 "yes",
                                 "no"
                             ],
+    "required_paths": [
+                           [
+                               "A",
+                               "F"
+                           ]
+                       ],
+    "required_cycles": [
+                            [
+                                "B",
+                                "C",
+                                "D"
+                            ]
+                        ],
     "forbidden_patterns":  [
 
                            ],
-    "min_steps":  5,
+    "min_steps":  6,
     "accepted_synonyms":  {
-
+                              "input": [
+                                  "price",
+                                  "precio"
+                              ]
                           }
 }
