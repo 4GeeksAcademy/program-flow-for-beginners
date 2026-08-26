@@ -1,42 +1,84 @@
 {
-    "required_nodes":  [
-                           "start",
-                           "input",
-                           "valid",
-                           "output",
-                           "end"
-                       ],
-    "required_edges":  [
-                           [
-                               "A",
-                               "B"
-                           ],
-                           [
-                               "B",
-                               "C"
-                           ],
-                           [
-                               "C",
-                               "B"
-                           ],
-                           [
-                               "C",
-                               "D"
-                           ],
-                           [
-                               "D",
-                               "E"
-                           ]
-                       ],
-    "required_conditions":  [
-                                "yes",
-                                "no"
-                            ],
-    "forbidden_patterns":  [
-
-                           ],
-    "min_steps":  5,
-    "accepted_synonyms":  {
-
-                          }
+    "rubric_version": 2,
+    "strict_edges": false,
+    "required_nodes": [
+        "start",
+        "locked",
+        "unlocked",
+        "output",
+        "end"
+    ],
+    "required_edges": [
+        [
+            "A",
+            "B"
+        ],
+        [
+            "B",
+            "C"
+        ],
+        [
+            "B",
+            "B"
+        ],
+        [
+            "C",
+            "D"
+        ],
+        [
+            "C",
+            "C"
+        ],
+        [
+            "D",
+            "B"
+        ],
+        [
+            "B",
+            "E"
+        ]
+    ],
+    "required_conditions": [
+        "event: coin",
+        "event: push"
+    ],
+    "required_paths": [
+        [
+            "A",
+            "E"
+        ],
+        [
+            "C",
+            "D",
+            "B"
+        ]
+    ],
+    "required_cycles": [
+        "B",
+        "C"
+    ],
+    "forbidden_patterns": [],
+    "min_steps": 7,
+    "accepted_synonyms": {
+        "locked": [
+            "bloqueado"
+        ],
+        "unlocked": [
+            "desbloqueado"
+        ],
+        "output": [
+            "allow pass / rotate",
+            "allow pass",
+            "rotate",
+            "permitir paso"
+        ],
+        "coin": [
+            "moneda",
+            "ficha"
+        ],
+        "push": [
+            "empujar",
+            "empuje"
+        ]
+    }
 }

@@ -1,10 +1,9 @@
 {
+    "rubric_version": 2,
+    "strict_edges": false,
     "required_nodes":  [
                            "start",
                            "input",
-                           "valid",
-                           "invalid",
-                           "home",
                            "output",
                            "end"
                        ],
@@ -18,16 +17,20 @@
                                "C"
                            ],
                            [
-                               "B",
-                               "D"
+                               "C",
+                               "B"
                            ],
                            [
                                "C",
-                               "E"
+                               "D"
                            ],
                            [
                                "D",
-                               "B"
+                               "E"
+                           ],
+                           [
+                               "E",
+                               "D"
                            ],
                            [
                                "E",
@@ -36,19 +39,54 @@
                            [
                                "F",
                                "G"
+                           ],
+                           [
+                               "G",
+                               "H"
+                           ],
+                           [
+                               "H",
+                               "I"
                            ]
                        ],
     "required_conditions":  [
                                 "yes",
-                                "no",
-                                "valid",
-                                "invalid"
+                                "no - loop"
                             ],
+    "required_paths": [
+                           [
+                               "A",
+                               "I"
+                           ],
+                           [
+                               "C",
+                               "D",
+                               "E",
+                               "F"
+                           ]
+                       ],
+    "required_cycles": [
+                            [
+                                "B",
+                                "C"
+                            ],
+                            [
+                                "D",
+                                "E"
+                            ]
+                        ],
     "forbidden_patterns":  [
 
                            ],
-    "min_steps":  7,
+    "min_steps":  10,
     "accepted_synonyms":  {
-
+                              "input": [
+                                  "select product",
+                                  "insert payment"
+                              ],
+                              "output": [
+                                  "output: return change",
+                                  "return change"
+                              ]
                           }
 }

@@ -1,4 +1,6 @@
 {
+    "rubric_version": 2,
+    "strict_edges": false,
     "required_nodes":  [
                            "start",
                            "input",
@@ -36,6 +38,22 @@
                                 "yes",
                                 "no"
                             ],
+    "required_paths": [
+                           [
+                               "A",
+                               "F"
+                           ],
+                           [
+                               "C",
+                               "D",
+                               "F"
+                           ],
+                           [
+                               "C",
+                               "E",
+                               "F"
+                           ]
+                       ],
     "forbidden_patterns":  [
 
                            ],

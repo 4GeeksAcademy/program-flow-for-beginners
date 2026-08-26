@@ -1,9 +1,11 @@
 {
+    "rubric_version": 2,
+    "strict_edges": false,
     "required_nodes":  [
                            "start",
                            "input",
+                           "loop",
                            "valid",
-                           "invalid",
                            "end"
                        ],
     "required_edges":  [
@@ -17,26 +19,42 @@
                            ],
                            [
                                "C",
-                               "D"
-                           ],
-                           [
-                               "D",
                                "B"
                            ],
                            [
                                "C",
+                               "D"
+                           ],
+                           [
+                               "D",
                                "E"
                            ]
                        ],
     "required_conditions":  [
-                                "valid",
-                                "invalid"
+                                "yes",
+                                "no"
                             ],
+    "required_paths": [
+                           [
+                               "A",
+                               "E"
+                           ]
+                       ],
+    "required_cycles": [
+                            [
+                                "B",
+                                "C"
+                            ]
+                        ],
     "forbidden_patterns":  [
 
                            ],
     "min_steps":  5,
     "accepted_synonyms":  {
-
+                              "input": [
+                                  "email",
+                                  "correo",
+                                  "correo electronico"
+                              ]
                           }
 }
