@@ -7,7 +7,14 @@ Manten esta forma: const answer = `...`; module.exports = answer.trim();
 */
 const answer = `
 flowchart TD
-    A[start] --> B[end]
+    A(["Start"]) --> B["State: Locked"]
+    B["State: Locked"] -->|Event: push| B["State: Locked"]
+    B["State: Locked"] -->|Event: coin| C["State: Unlocked Allow Pass / Rotate"]
+    C["State: Unlocked Allow Pass / Rotate"] -->|Event: coin| C["State: Unlocked Allow Pass / Rotate"]
+    C["State: Unlocked Allow Pass / Rotate"] -->|Event: push| D["Allow Pass / Rotate State: Locked"]
+    D["Allow Pass / Rotate State: Locked"] --> B["State: Locked"]
+    B["State: Locked"] --> E(["End"])
+
 `;
 
 module.exports = answer.trim();
