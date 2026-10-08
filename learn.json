@@ -33,7 +33,7 @@
             "no_delivery"
         ],
         "regex": ""
-    }
+    },
         "telemetry": {
         "batch": "https://breathecode.herokuapp.com/v1/assignment/me/telemetry?asset_id=3341,3342"
     }
