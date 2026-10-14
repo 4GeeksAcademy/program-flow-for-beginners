@@ -1,52 +1,188 @@
 {
-    "rubric_version": 2,
-    "strict_edges": false,
-    "required_nodes":  [
-                           "start",
-                           "input",
-                           "loop",
-                           "end"
-                       ],
-    "required_edges":  [
-                           [
-                               "A",
-                               "B"
-                           ],
-                           [
-                               "B",
-                               "C"
-                           ],
-                           [
-                               "C",
-                               "D"
-                           ],
-                           [
-                               "D",
-                               "B"
-                           ]
-                       ],
-    "required_conditions":  [
-                                "yes",
-                                "no"
-                            ],
-    "required_paths": [
-                           [
-                               "A",
-                               "F"
-                           ]
-                       ],
-    "required_cycles": [
-                            [
-                                "B",
-                                "C",
-                                "D"
-                            ]
-                        ],
-    "forbidden_patterns":  [
-                               "for"
-                           ],
-    "min_steps":  4,
-    "accepted_synonyms":  {
-
-                          }
+  "rubric_version": 4,
+  "min_nodes": 4,
+  "loops": {
+    "min": 1
+  },
+  "branching": [
+    {
+      "branches": [
+        "yes",
+        "no"
+      ],
+      "in_loop": true
+    }
+  ],
+  "mentions": [
+    {
+      "about": "the password",
+      "examples": [
+        "enter password",
+        "correct password?"
+      ],
+      "stems": [
+        "pass",
+        "pwd",
+        "contrase",
+        "clave",
+        "pin",
+        "login",
+        "log",
+        "acces",
+        "credential",
+        "credencial",
+        "sign",
+        "ingres",
+        "password",
+        "contrasena"
+      ],
+      "about_es": "la contraseña",
+      "examples_es": [
+        "pedir contraseña",
+        "¿contraseña correcta?"
+      ]
+    }
+  ],
+  "strict": {
+    "inputs": {
+      "password": {
+        "type": "bool",
+        "words": [
+          "pw",
+          "pass",
+          "password",
+          "passw",
+          "passcode",
+          "contrasena",
+          "contrase",
+          "clave",
+          "pin",
+          "pwd",
+          "credential",
+          "credencial"
+        ],
+        "yes": [
+          "correct",
+          "correcta",
+          "correcto",
+          "right",
+          "valid",
+          "valida",
+          "ok",
+          "okay",
+          "match",
+          "coincide",
+          "accepted"
+        ],
+        "no": [
+          "wrong",
+          "incorrect",
+          "incorrecta",
+          "incorrecto",
+          "invalid",
+          "invalida",
+          "bad",
+          "mal",
+          "erronea"
+        ],
+        "say": [
+          "the correct password",
+          "a wrong password"
+        ],
+        "name_es": "la contraseña",
+        "say_es": [
+          "la contraseña correcta",
+          "una contraseña incorrecta"
+        ],
+        "name": "password"
+      }
+    },
+    "classes": [
+      {
+        "name": "denied",
+        "says": "access is refused",
+        "when": "wrong",
+        "words": [
+          "denied",
+          "deny",
+          "reject",
+          "error",
+          "wrong",
+          "incorrect",
+          "incorrecta",
+          "fail",
+          "intenta",
+          "retry",
+          "try again"
+        ],
+        "says_es": "se niega el acceso"
+      },
+      {
+        "name": "access",
+        "says": "access is granted",
+        "negated": "denied",
+        "words": [
+          "access",
+          "acceso",
+          "granted",
+          "grant",
+          "welcome",
+          "bienven",
+          "ingreso",
+          "ingresa al sistema",
+          "concedido",
+          "concedida",
+          "login",
+          "logged",
+          "log in",
+          "log the user in",
+          "log user in",
+          "logs in",
+          "you're in",
+          "you are in",
+          "estas dentro",
+          "estás dentro",
+          "let in",
+          "let user in",
+          "let the user in",
+          "let them in",
+          "deja entrar",
+          "dejar entrar",
+          "enter",
+          "entra",
+          "allow",
+          "permit",
+          "dashboard",
+          "success",
+          "exito",
+          "unlock"
+        ],
+        "says_es": "se concede el acceso"
+      }
+    ],
+    "check": {
+      "type": "retry",
+      "inputs": [
+        "password"
+      ],
+      "success": "access",
+      "max_wrong": 3
+    },
+    "examples": {
+      "decision": "\"Password correct?\"",
+      "password": "\"Password correct?\"",
+      "result": "\"Access granted\"",
+      "ask": "\"Ask password\""
+    },
+    "examples_es": {
+      "decision": "\"¿Contraseña correcta?\"",
+      "password": "\"¿Contraseña correcta?\"",
+      "result": "\"Acceso concedido\"",
+      "ask": "\"Pedir contraseña\""
+    },
+    "generic_result": {
+      "yes": "access",
+      "no": "denied"
+    }
+  }
 }

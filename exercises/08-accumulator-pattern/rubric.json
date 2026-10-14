@@ -1,64 +1,122 @@
 {
-    "rubric_version": 2,
-    "strict_edges": false,
-    "required_nodes":  [
-                           "start",
-                           "input",
-                           "loop",
-                           "output",
-                           "end"
-                       ],
-    "required_edges":  [
-                           [
-                               "A",
-                               "B"
-                           ],
-                           [
-                               "B",
-                               "C"
-                           ],
-                           [
-                               "C",
-                               "D"
-                           ],
-                           [
-                               "D",
-                               "B"
-                           ],
-                           [
-                               "C",
-                               "E"
-                           ],
-                           [
-                               "E",
-                               "F"
-                           ]
-                       ],
-    "required_conditions":  [
-                                "yes",
-                                "no"
-                            ],
-    "required_paths": [
-                           [
-                               "A",
-                               "F"
-                           ]
-                       ],
-    "required_cycles": [
-                            [
-                                "B",
-                                "C",
-                                "D"
-                            ]
-                        ],
-    "forbidden_patterns":  [
-
-                           ],
-    "min_steps":  6,
-    "accepted_synonyms":  {
-                              "input": [
-                                  "price",
-                                  "precio"
-                              ]
-                          }
+  "rubric_version": 4,
+  "min_nodes": 5,
+  "loops": {
+    "min": 1
+  },
+  "branching": [
+    {
+      "branches": [
+        "yes",
+        "no"
+      ],
+      "in_loop": true
+    }
+  ],
+  "mentions": [
+    {
+      "about": "the prices or items",
+      "examples": [
+        "read price",
+        "add item"
+      ],
+      "stems": [
+        "price",
+        "precio",
+        "cost",
+        "item",
+        "product",
+        "articul",
+        "cart",
+        "carrito",
+        "compra",
+        "shop"
+      ],
+      "about_es": "los precios o artículos",
+      "examples_es": [
+        "leer precio"
+      ]
+    }
+  ],
+  "strict": {
+    "inputs": {
+      "price": {
+        "type": "list",
+        "sentinel": 0,
+        "words": [
+          "price",
+          "precio",
+          "cost",
+          "costo",
+          "amount",
+          "monto",
+          "importe",
+          "valor",
+          "item",
+          "items",
+          "product",
+          "producto",
+          "articulo"
+        ],
+        "say": "prices {v}",
+        "name_es": "el precio",
+        "say_es": "precios {v}",
+        "name": "price"
+      }
+    },
+    "classes": [
+      {
+        "name": "show",
+        "says": "the total is shown",
+        "words": [
+          "ensenar",
+          "ensena",
+          "show",
+          "display",
+          "print",
+          "output",
+          "muestra",
+          "mostrar",
+          "imprimir",
+          "imprime",
+          "report",
+          "total",
+          "result",
+          "resultado"
+        ],
+        "says_es": "se muestra el total"
+      }
+    ],
+    "check": {
+      "type": "accumulate",
+      "input": "price",
+      "lists": [
+        [
+          3
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          3,
+          5,
+          2
+        ]
+      ],
+      "show": "show"
+    },
+    "examples": {
+      "decision": "\"More items?\" or \"Price = 0?\"",
+      "result": "\"Show total\"",
+      "add": "total = total + price",
+      "ask": "\"Read price\""
+    },
+    "examples_es": {
+      "decision": "\"¿Más artículos?\" o \"¿Precio = 0?\"",
+      "result": "\"Mostrar total\"",
+      "add": "total = total + precio",
+      "ask": "\"Leer precio\""
+    }
+  }
 }

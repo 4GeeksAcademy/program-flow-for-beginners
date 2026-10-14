@@ -1,86 +1,235 @@
 {
-    "rubric_version": 2,
-    "strict_edges": false,
-    "required_nodes":  [
-                           "start",
-                           "input",
-                           "valid",
-                           "invalid",
-                           "end"
-                       ],
-    "required_edges":  [
-                           [
-                               "A",
-                               "B"
-                           ],
-                           [
-                               "B",
-                               "C"
-                           ],
-                           [
-                               "C",
-                               "D"
-                           ],
-                           [
-                               "D",
-                               "E"
-                           ],
-                           [
-                               "C",
-                               "F"
-                           ],
-                           [
-                               "F",
-                               "D"
-                           ],
-                           [
-                               "F",
-                               "G"
-                           ],
-                           [
-                               "G",
-                               "E"
-                           ]
-                       ],
-    "required_conditions":  [
-                                "yes",
-                                "no"
-                            ],
-    "required_paths": [
-                           [
-                               "A",
-                               "E"
-                           ],
-                           [
-                               "C",
-                               "F",
-                               "D"
-                           ],
-                           [
-                               "F",
-                               "G",
-                               "E"
-                           ]
-                       ],
-    "forbidden_patterns":  [
-
-                           ],
-    "min_steps":  8,
-    "accepted_synonyms":  {
-                              "input": [
-                                  "age",
-                                  "edad"
-                              ],
-                              "valid": [
-                                  "approved",
-                                  "approved: can rent",
-                                  "can rent"
-                              ],
-                              "invalid": [
-                                  "reject",
-                                  "rejected",
-                                  "denied",
-                                  "no rental"
-                              ]
-                          }
+  "rubric_version": 4,
+  "min_nodes": 6,
+  "branching": [
+    {
+      "branches": [
+        "yes",
+        "no"
+      ],
+      "count": 2,
+      "nested": true
+    }
+  ],
+  "mentions": [
+    {
+      "about": "the age check",
+      "examples": [
+        "age >= 21?",
+        "edad >= 21?"
+      ],
+      "stems": [
+        "age",
+        "edad",
+        "21",
+        "old",
+        "years",
+        "anos",
+        "mayor",
+        "menor"
+      ],
+      "about_es": "la comprobación de la edad",
+      "examples_es": [
+        "¿edad >= 21?"
+      ]
+    },
+    {
+      "about": "the driver's license check",
+      "examples": [
+        "valid license?",
+        "¿licencia válida?"
+      ],
+      "stems": [
+        "licen",
+        "permit",
+        "carnet",
+        "carne",
+        "driv",
+        "conduc",
+        "brevet",
+        "registro",
+        "manej"
+      ],
+      "about_es": "la comprobación de la licencia",
+      "examples_es": [
+        "¿licencia válida?"
+      ]
+    }
+  ],
+  "loops": {
+    "max": 0
+  },
+  "strict": {
+    "inputs": {
+      "age": {
+        "type": "number",
+        "words": [
+          "age",
+          "edad",
+          "old",
+          "older",
+          "years",
+          "anos",
+          "aged"
+        ],
+        "say": "age {v}",
+        "name_es": "la edad",
+        "say_es": "edad {v}",
+        "name": "age"
+      },
+      "license": {
+        "type": "bool",
+        "words": [
+          "licen",
+          "licence",
+          "lisence",
+          "permit",
+          "carnet",
+          "carne",
+          "brevet",
+          "driving",
+          "driver",
+          "drivers",
+          "registro",
+          "manejar",
+          "conducir"
+        ],
+        "yes": [
+          "valid",
+          "valida",
+          "valido",
+          "has",
+          "have",
+          "tiene",
+          "tienes",
+          "posee",
+          "own",
+          "vigente",
+          "ok",
+          "correct",
+          "current"
+        ],
+        "no": [
+          "invalid",
+          "invalida",
+          "expired",
+          "vencid",
+          "caducad",
+          "suspend",
+          "revoked",
+          "missing",
+          "falta"
+        ],
+        "say": [
+          "with a valid license",
+          "without a valid license"
+        ],
+        "name_es": "la licencia",
+        "say_es": [
+          "con licencia válida",
+          "sin licencia válida"
+        ],
+        "name": "license"
+      }
+    },
+    "classes": [
+      {
+        "name": "reject",
+        "says": "cannot rent",
+        "words": [
+          "young",
+          "joven",
+          "minor",
+          "underage",
+          "too young",
+          "reject",
+          "rechaz",
+          "deny",
+          "denied",
+          "denegad",
+          "refus",
+          "sorry",
+          "decline",
+          "home",
+          "casa",
+          "fail"
+        ],
+        "says_es": "no puede alquilar"
+      },
+      {
+        "name": "rent",
+        "says": "can rent",
+        "negated": "reject",
+        "words": [
+          "arrend",
+          "renta",
+          "rentar",
+          "car",
+          "coche",
+          "carro",
+          "vehicle",
+          "vehiculo",
+          "hand over",
+          "is yours",
+          "rent",
+          "alquil",
+          "rental",
+          "approv",
+          "aprob",
+          "allow",
+          "keys",
+          "llaves",
+          "success",
+          "exito",
+          "can",
+          "puede",
+          "accept",
+          "acept",
+          "give the car",
+          "entrega"
+        ],
+        "says_es": "puede alquilar"
+      }
+    ],
+    "check": {
+      "type": "outcome",
+      "thresholds": {
+        "age": [
+          21
+        ]
+      },
+      "rule": [
+        {
+          "if": {
+            "age": [
+              ">=",
+              21
+            ],
+            "license": true
+          },
+          "then": "rent"
+        },
+        {
+          "then": "reject"
+        }
+      ],
+      "first_input": "age"
+    },
+    "examples": {
+      "decision": "\"Age >= 21?\" and \"Valid license?\"",
+      "license": "\"Valid license?\"",
+      "result": "\"Rent the car\" or \"Reject\"",
+      "ask": "\"Ask age\""
+    },
+    "examples_es": {
+      "decision": "\"¿Edad >= 21?\" y \"¿Licencia válida?\"",
+      "license": "\"¿Licencia válida?\"",
+      "result": "\"Alquilar el auto\" o \"Rechazar\"",
+      "ask": "\"Pedir edad\""
+    },
+    "generic_result": {
+      "yes": "rent",
+      "no": "reject"
+    }
+  }
 }

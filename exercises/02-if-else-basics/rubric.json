@@ -1,64 +1,162 @@
 {
-    "rubric_version": 2,
-    "strict_edges": false,
-    "required_nodes":  [
-                           "start",
-                           "input",
-                           "valid",
-                           "invalid",
-                           "end"
-                       ],
-    "required_edges":  [
-                           [
-                               "A",
-                               "B"
-                           ],
-                           [
-                               "B",
-                               "C"
-                           ],
-                           [
-                               "C",
-                               "D"
-                           ],
-                           [
-                               "C",
-                               "E"
-                           ],
-                           [
-                               "D",
-                               "F"
-                           ],
-                           [
-                               "E",
-                               "F"
-                           ]
-                       ],
-    "required_conditions":  [
-                                "yes",
-                                "no"
-                            ],
-    "required_paths": [
-                           [
-                               "A",
-                               "F"
-                           ],
-                           [
-                               "C",
-                               "D",
-                               "F"
-                           ],
-                           [
-                               "C",
-                               "E",
-                               "F"
-                           ]
-                       ],
-    "forbidden_patterns":  [
-
-                           ],
-    "min_steps":  6,
-    "accepted_synonyms":  {
-
-                          }
+  "rubric_version": 4,
+  "min_nodes": 5,
+  "branching": [
+    {
+      "branches": [
+        "yes",
+        "no"
+      ]
+    }
+  ],
+  "mentions": [
+    {
+      "about": "the age check",
+      "examples": [
+        "age >= 18?",
+        "edad >= 18?"
+      ],
+      "stems": [
+        "age",
+        "edad",
+        "18",
+        "old",
+        "years",
+        "anos",
+        "adult",
+        "adulto",
+        "mayor",
+        "menor",
+        "minor"
+      ],
+      "about_es": "la comprobación de la edad",
+      "examples_es": [
+        "¿edad >= 18?"
+      ]
+    }
+  ],
+  "strict": {
+    "inputs": {
+      "age": {
+        "type": "number",
+        "words": [
+          "age",
+          "edad",
+          "old",
+          "older",
+          "years",
+          "anos",
+          "aged"
+        ],
+        "adult_at": 18,
+        "say": "age {v}",
+        "name_es": "la edad",
+        "say_es": "edad {v}",
+        "name": "age"
+      }
+    },
+    "classes": [
+      {
+        "name": "denied",
+        "says": "cannot drink",
+        "words": [
+          "deny",
+          "denied",
+          "denegado",
+          "denegada",
+          "reject",
+          "rechaz",
+          "refus",
+          "prohib",
+          "forbid",
+          "sorry",
+          "young",
+          "minor",
+          "menor",
+          "underage",
+          "negado",
+          "negada",
+          "soft drink",
+          "refresco",
+          "juice",
+          "jugo",
+          "zumo",
+          "water",
+          "agua",
+          "leave",
+          "go home"
+        ],
+        "says_es": "no puede beber"
+      },
+      {
+        "name": "allowed",
+        "says": "can drink",
+        "negated": "denied",
+        "words": [
+          "can",
+          "puede",
+          "pueden",
+          "allow",
+          "permit",
+          "permitido",
+          "permitida",
+          "approv",
+          "aprob",
+          "welcome",
+          "bienven",
+          "enjoy",
+          "disfrut",
+          "drink",
+          "beber",
+          "bebe",
+          "toma",
+          "tomar",
+          "alcohol",
+          "serve",
+          "servir",
+          "sirve",
+          "beer",
+          "cerveza",
+          "ok"
+        ],
+        "says_es": "puede beber"
+      }
+    ],
+    "check": {
+      "type": "outcome",
+      "thresholds": {
+        "age": [
+          18
+        ]
+      },
+      "rule": [
+        {
+          "if": {
+            "age": [
+              ">=",
+              18
+            ]
+          },
+          "then": "allowed"
+        },
+        {
+          "then": "denied"
+        }
+      ]
+    },
+    "examples": {
+      "decision": "\"Age >= 18?\"",
+      "result": "\"Can drink\" or \"Cannot drink\"",
+      "ask": "\"Ask age\""
+    },
+    "examples_es": {
+      "decision": "\"¿Edad >= 18?\"",
+      "result": "\"Puede beber\" o \"No puede beber\"",
+      "ask": "\"Pedir edad\""
+    },
+    "generic_result": {
+      "yes": "allowed",
+      "no": "denied"
+    }
+  }
 }

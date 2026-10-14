@@ -1,6 +1,6 @@
-﻿const fs = require("fs");
+const fs = require("fs");
 const path = require("path");
-const { validateMermaidAnswer } = require("./mermaid-rules-engine");
+const { validateFlow } = require("./flow-engine");
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, "utf8"));
@@ -39,14 +39,25 @@ function loadAnswer(exerciseDir) {
 
 function runExerciseTest(exerciseDir) {
   const rubric = readJson(path.join(exerciseDir, "rubric.json"));
-  const synonyms = readJson(path.join(__dirname, "synonyms.es-en.json"));
+  const synonyms = readJson(path.join(__dirname, "flow-synonyms.json"));
   const answer = loadAnswer(exerciseDir);
 
-  const result = validateMermaidAnswer(answer, rubric, synonyms);
+  const result = validateFlow(answer, rubric, synonyms);
 
   if (!result.pass) {
-    const details = result.report.errors.map((e) => `- ${e}`).join("\n");
-    throw new Error(`Open Mermaid validation failed for app.js:\n${details}`);
+    const heading = result.lang === "es" ? "Tu diagrama todavía no está bien:" : "Your diagram is not quite right yet:";
+    const error = new Error(`${heading}\n${result.errors.map((e) => `- ${e}`).join("\n")}`);
+    // Without a stack, jest shows only the message, not lines of this file.
+    error.stack = error.message;
+    throw error;
+  }
+
+  // LearnPack shows what a passing test prints in place of its own success line.
+  if (result.tips && result.tips.length) {
+    const es = result.lang === "es";
+    const passed = es ? "✅ Todas las pruebas pasaron." : "✅ All tests have passed.";
+    const heading = es ? "Consejos para que tu diagrama se entienda mejor:" : "Tips to make your diagram clearer:";
+    process.stdout.write(`${passed}\n\n${heading}\n${result.tips.map((t) => `- ${t}`).join("\n")}\n`);
   }
 
   return result;

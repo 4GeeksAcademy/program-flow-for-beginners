@@ -15,4 +15,4 @@ Edita solo `app.js` dentro de cada carpeta de ejercicio.
 ## :bulb: Pista
 - No necesitas dominar la sintaxis de Mermaid en este tutorial.
 - Enfocate en la logica que pide cada ejercicio.
-- Si fallan los tests, compara tu resultado con `rubric.json`.
+- Los tests ejecutan tu diagrama como si fuera un programa. Si uno falla, su mensaje te dice qué caja corregir y cómo.

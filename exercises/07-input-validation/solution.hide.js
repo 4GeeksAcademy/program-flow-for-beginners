@@ -1,17 +1,11 @@
-/*
-Edit only the Mermaid flow inside `answer`.
-Keep this shape: const answer = `...`; module.exports = answer.trim();
----
-Edita solo el flujo Mermaid dentro de `answer`.
-Manten esta forma: const answer = `...`; module.exports = answer.trim();
-*/
 const answer = `
 flowchart TD
-    A["Start"] --> B["Email"]
-    B["Email"] --> C{"loop"}
-    C{"loop"} -->|No| B["Email"]
-    C{"loop"} -->|Yes| D["valid"]
-    D["valid"] --> E["end"]
+    A(["Start"]) --> B["Ask email"]
+    B["Ask email"] --> C{"Email valid?"}
+    C{"Email valid?"} -->|"No"| D["Show error: invalid email"]
+    D["Show error: invalid email"] --> B["Ask email"]
+    C{"Email valid?"} -->|"Yes"| E["Continue registration"]
+    E["Continue registration"] --> F(["End"])
 `;
 
 module.exports = answer.trim();

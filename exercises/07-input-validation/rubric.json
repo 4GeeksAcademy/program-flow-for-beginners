@@ -1,60 +1,192 @@
 {
-    "rubric_version": 2,
-    "strict_edges": false,
-    "required_nodes":  [
-                           "start",
-                           "input",
-                           "loop",
-                           "valid",
-                           "end"
-                       ],
-    "required_edges":  [
-                           [
-                               "A",
-                               "B"
-                           ],
-                           [
-                               "B",
-                               "C"
-                           ],
-                           [
-                               "C",
-                               "B"
-                           ],
-                           [
-                               "C",
-                               "D"
-                           ],
-                           [
-                               "D",
-                               "E"
-                           ]
-                       ],
-    "required_conditions":  [
-                                "yes",
-                                "no"
-                            ],
-    "required_paths": [
-                           [
-                               "A",
-                               "E"
-                           ]
-                       ],
-    "required_cycles": [
-                            [
-                                "B",
-                                "C"
-                            ]
-                        ],
-    "forbidden_patterns":  [
-
-                           ],
-    "min_steps":  5,
-    "accepted_synonyms":  {
-                              "input": [
-                                  "email",
-                                  "correo",
-                                  "correo electronico"
-                              ]
-                          }
+  "rubric_version": 4,
+  "min_nodes": 4,
+  "loops": {
+    "min": 1
+  },
+  "branching": [
+    {
+      "branches": [
+        "yes",
+        "no"
+      ],
+      "in_loop": true
+    }
+  ],
+  "mentions": [
+    {
+      "about": "the email",
+      "examples": [
+        "enter email",
+        "valid email format?"
+      ],
+      "stems": [
+        "email",
+        "mail",
+        "correo",
+        "@",
+        "format",
+        "formato"
+      ],
+      "about_es": "el email",
+      "examples_es": [
+        "pedir email",
+        "¿email válido?"
+      ]
+    }
+  ],
+  "strict": {
+    "inputs": {
+      "email": {
+        "type": "bool",
+        "words": [
+          "email",
+          "e-mail",
+          "mail",
+          "correo",
+          "format",
+          "formato",
+          "@"
+        ],
+        "yes": [
+          "conform",
+          "conforms",
+          "meets",
+          "matches",
+          "valid",
+          "valido",
+          "valida",
+          "correct",
+          "correcto",
+          "correcta",
+          "ok",
+          "okay",
+          "right",
+          "proper",
+          "well",
+          "has",
+          "have",
+          "contains",
+          "contain",
+          "includes",
+          "tiene",
+          "contiene",
+          "incluye"
+        ],
+        "no": [
+          "invalid",
+          "invalido",
+          "invalida",
+          "wrong",
+          "incorrect",
+          "incorrecto",
+          "incorrecta",
+          "bad",
+          "malformed",
+          "mal"
+        ],
+        "partial_no": [
+          "empty",
+          "blank",
+          "vacio",
+          "vacia"
+        ],
+        "say": [
+          "a valid email",
+          "an invalid email"
+        ],
+        "name_es": "el email",
+        "say_es": [
+          "un email válido",
+          "un email inválido"
+        ],
+        "name": "email"
+      }
+    },
+    "classes": [
+      {
+        "name": "error",
+        "says": "an error is shown",
+        "when": "wrong",
+        "words": [
+          "invalid",
+          "invalido",
+          "invalida",
+          "error",
+          "wrong",
+          "incorrect",
+          "incorrecto",
+          "incorrecta",
+          "try again",
+          "retry",
+          "intenta",
+          "otra vez",
+          "again",
+          "de nuevo",
+          "mal",
+          "bad",
+          "real email"
+        ],
+        "says_es": "se muestra un error"
+      },
+      {
+        "name": "ok",
+        "says": "registration continues",
+        "when": "right",
+        "negated": "error",
+        "words": [
+          "proceed",
+          "sign up",
+          "sign-up",
+          "signup",
+          "continue",
+          "continua",
+          "continuar",
+          "register",
+          "registr",
+          "create account",
+          "crear cuenta",
+          "save",
+          "guardar",
+          "guarda",
+          "success",
+          "exito",
+          "welcome",
+          "bienven",
+          "confirm",
+          "valid",
+          "valido",
+          "valida",
+          "accepted",
+          "aceptado",
+          "done",
+          "listo"
+        ],
+        "says_es": "continúa el registro"
+      }
+    ],
+    "check": {
+      "type": "retry",
+      "inputs": [
+        "email"
+      ],
+      "max_wrong": 3
+    },
+    "examples": {
+      "decision": "\"Email valid?\"",
+      "email": "\"Email valid?\"",
+      "ask": "\"Ask email\"",
+      "result": "\"Continue registration\" or \"Show error\""
+    },
+    "examples_es": {
+      "decision": "\"¿Email válido?\"",
+      "email": "\"¿Email válido?\"",
+      "ask": "\"Pedir email\"",
+      "result": "\"Continuar el registro\" o \"Mostrar error\""
+    },
+    "generic_result": {
+      "yes": "ok",
+      "no": "error"
+    }
+  }
 }

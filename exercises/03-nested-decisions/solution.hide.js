@@ -1,20 +1,13 @@
-/*
-Edit only the Mermaid flow inside `answer`.
-Keep this shape: const answer = `...`; module.exports = answer.trim();
----
-Edita solo el flujo Mermaid dentro de `answer`.
-Manten esta forma: const answer = `...`; module.exports = answer.trim();
-*/
 const answer = `
 flowchart TD
-    A("Start") --> B["Age"]
-    C{"Age >=21"} -->|no| D["Reject"]
-    D["Reject"] --> E("End")
-    C{"Age >=21"} -->|yes| F{"Valid license?"}
-    F{"Valid license?"} -->|no| D["Reject"]
-    F{"Valid license?"} -->|yes| G["Approved: can rent"]
-    G["Approved: can rent"] --> E("End")
-    B["Age"] --> C{"Age >=21"}
+    A(["Start"]) --> B["Ask age and license"]
+    B["Ask age and license"] --> C{"Age >= 21?"}
+    C{"Age >= 21?"} -->|"No"| D["Reject: no rental"]
+    C{"Age >= 21?"} -->|"Yes"| E{"Valid license?"}
+    E{"Valid license?"} -->|"No"| D["Reject: no rental"]
+    E{"Valid license?"} -->|"Yes"| F["Rent the car"]
+    D["Reject: no rental"] --> G(["End"])
+    F["Rent the car"] --> G(["End"])
 `;
 
 module.exports = answer.trim();

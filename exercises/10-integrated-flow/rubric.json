@@ -1,92 +1,335 @@
 {
-    "rubric_version": 2,
-    "strict_edges": false,
-    "required_nodes":  [
-                           "start",
-                           "input",
-                           "output",
-                           "end"
-                       ],
-    "required_edges":  [
-                           [
-                               "A",
-                               "B"
-                           ],
-                           [
-                               "B",
-                               "C"
-                           ],
-                           [
-                               "C",
-                               "B"
-                           ],
-                           [
-                               "C",
-                               "D"
-                           ],
-                           [
-                               "D",
-                               "E"
-                           ],
-                           [
-                               "E",
-                               "D"
-                           ],
-                           [
-                               "E",
-                               "F"
-                           ],
-                           [
-                               "F",
-                               "G"
-                           ],
-                           [
-                               "G",
-                               "H"
-                           ],
-                           [
-                               "H",
-                               "I"
-                           ]
-                       ],
-    "required_conditions":  [
-                                "yes",
-                                "no - loop"
-                            ],
-    "required_paths": [
-                           [
-                               "A",
-                               "I"
-                           ],
-                           [
-                               "C",
-                               "D",
-                               "E",
-                               "F"
-                           ]
-                       ],
-    "required_cycles": [
-                            [
-                                "B",
-                                "C"
-                            ],
-                            [
-                                "D",
-                                "E"
-                            ]
-                        ],
-    "forbidden_patterns":  [
-
-                           ],
-    "min_steps":  10,
-    "accepted_synonyms":  {
-                              "input": [
-                                  "select product",
-                                  "insert payment"
-                              ],
-                              "output": [
-                                  "output: return change",
-                                  "return change"
-                              ]
-                          }
+  "rubric_version": 4,
+  "min_nodes": 6,
+  "loops": {
+    "min": 1
+  },
+  "branching": [
+    {
+      "branches": [
+        "yes",
+        "no"
+      ],
+      "count": 2
+    },
+    {
+      "branches": [
+        "yes",
+        "no"
+      ],
+      "in_loop": true
+    }
+  ],
+  "mentions": [
+    {
+      "about": "choosing a product",
+      "examples": [
+        "select product",
+        "valid selection?"
+      ],
+      "stems": [
+        "product",
+        "producto",
+        "item",
+        "select",
+        "selec",
+        "elig",
+        "escog",
+        "choose",
+        "choice",
+        "snack",
+        "bebida",
+        "drink",
+        "refresco",
+        "snack",
+        "numero",
+        "codigo",
+        "code",
+        "opcion",
+        "option"
+      ],
+      "about_es": "la elección del producto",
+      "examples_es": [
+        "seleccionar producto",
+        "¿selección válida?"
+      ]
+    },
+    {
+      "about": "the payment",
+      "examples": [
+        "insert payment",
+        "enough money?"
+      ],
+      "stems": [
+        "pay",
+        "pago",
+        "pag",
+        "money",
+        "dinero",
+        "coin",
+        "moneda",
+        "cash",
+        "efectivo",
+        "insert",
+        "fund",
+        "fondo",
+        "credit",
+        "credito",
+        "saldo",
+        "balance"
+      ],
+      "about_es": "el pago",
+      "examples_es": [
+        "insertar dinero",
+        "¿dinero suficiente?"
+      ]
+    }
+  ],
+  "first_decision_in_loop": true,
+  "strict": {
+    "inputs": {
+      "selection": {
+        "type": "bool",
+        "words": [
+          "select",
+          "selec",
+          "product",
+          "producto",
+          "item",
+          "bebida",
+          "drink",
+          "snack",
+          "refresco",
+          "opcion",
+          "option",
+          "codigo",
+          "code",
+          "choice",
+          "eleccion",
+          "stock"
+        ],
+        "yes": [
+          "valid",
+          "valida",
+          "valido",
+          "available",
+          "disponible",
+          "exist",
+          "existe",
+          "ok",
+          "correct",
+          "correcta",
+          "in stock"
+        ],
+        "no": [
+          "invalid",
+          "invalida",
+          "invalido",
+          "unavailable",
+          "agotado",
+          "out of stock",
+          "wrong",
+          "incorrect"
+        ],
+        "say": [
+          "a valid choice",
+          "an invalid choice"
+        ],
+        "name_es": "la selección",
+        "say_es": [
+          "una selección válida",
+          "una selección inválida"
+        ],
+        "name": "selection"
+      },
+      "payment": {
+        "type": "bool",
+        "stop_ok": true,
+        "stop_needs": "refund",
+        "words": [
+          "pay",
+          "payment",
+          "payments",
+          "pagar",
+          "pagos",
+          "pago",
+          "pag",
+          "money",
+          "dinero",
+          "coin",
+          "moneda",
+          "cash",
+          "efectivo",
+          "fund",
+          "fondo",
+          "credit",
+          "saldo",
+          "balance",
+          "amount",
+          "monto"
+        ],
+        "yes": [
+          "enough",
+          "sufficient",
+          "suficiente",
+          "alcanza",
+          "valid",
+          "valido",
+          "ok",
+          "paid",
+          "complete",
+          "completo",
+          "covers",
+          "accepted",
+          "aceptado"
+        ],
+        "no": [
+          "insufficient",
+          "insuficiente",
+          "short",
+          "falta",
+          "invalid",
+          "invalido",
+          "declined",
+          "rechazado"
+        ],
+        "say": [
+          "enough money",
+          "not enough money"
+        ],
+        "name_es": "el dinero",
+        "say_es": [
+          "dinero suficiente",
+          "dinero insuficiente"
+        ],
+        "name": "payment",
+        "no_restart": true
+      }
+    },
+    "classes": [
+      {
+        "name": "dispense",
+        "says": "the product comes out",
+        "words": [
+          "dispens",
+          "entreg",
+          "deliver",
+          "release",
+          "drop",
+          "despach",
+          "vend",
+          "give the product",
+          "sale",
+          "sacar",
+          "saca",
+          "dar el producto",
+          "da el producto",
+          "here is your product",
+          "here's your product",
+          "here is your snack",
+          "aqui tienes tu producto",
+          "aquí tienes tu producto"
+        ],
+        "negated": "none",
+        "says_es": "sale el producto"
+      },
+      {
+        "name": "change",
+        "says": "the change is returned",
+        "words": [
+          "change",
+          "cambio",
+          "vuelto",
+          "vuelta"
+        ],
+        "says_es": "se devuelve el cambio"
+      },
+      {
+        "name": "refund",
+        "says": "the money is given back",
+        "when": "wrong",
+        "about": "payment",
+        "words": [
+          "refund",
+          "reembols",
+          "return all",
+          "all the money",
+          "money to the customer",
+          "money to customer",
+          "devolver",
+          "devuelve",
+          "devuelven",
+          "money back",
+          "give back",
+          "return money",
+          "return the money",
+          "returns money",
+          "return coins",
+          "return the coins",
+          "coins back",
+          "devolver monedas",
+          "devuelve las monedas",
+          "devolver el dinero",
+          "cancel",
+          "cancela",
+          "cancelar"
+        ],
+        "says_es": "se devuelve el dinero"
+      },
+      {
+        "name": "error",
+        "says": "an error is shown",
+        "when": "wrong",
+        "words": [
+          "error",
+          "eror",
+          "invalid",
+          "invalido",
+          "invalida",
+          "wrong",
+          "incorrect",
+          "incorrecto",
+          "incorrecta",
+          "not enough",
+          "insufficient",
+          "insuficiente",
+          "try again",
+          "retry",
+          "intenta",
+          "otra vez",
+          "sorry",
+          "lo siento",
+          "falta"
+        ],
+        "says_es": "se muestra un error"
+      }
+    ],
+    "check": {
+      "type": "retry",
+      "inputs": [
+        "selection",
+        "payment"
+      ],
+      "success": "dispense",
+      "max_wrong": 2
+    },
+    "examples": {
+      "decision": "\"Valid selection?\" and \"Enough money?\"",
+      "selection": "\"Valid selection?\"",
+      "payment": "\"Enough money?\"",
+      "result": "\"Dispense product\"",
+      "ask": "\"Select product\" or \"Insert money\"",
+      "ask_selection": "\"Select product\"",
+      "ask_payment": "\"Insert money\""
+    },
+    "examples_es": {
+      "decision": "\"¿Selección válida?\" y \"¿Dinero suficiente?\"",
+      "selection": "\"¿Selección válida?\"",
+      "payment": "\"¿Dinero suficiente?\"",
+      "result": "\"Entregar producto\"",
+      "ask": "\"Seleccionar producto\" o \"Insertar dinero\"",
+      "ask_selection": "\"Seleccionar producto\"",
+      "ask_payment": "\"Insertar dinero\""
+    }
+  }
 }

@@ -1,15 +1,15 @@
-# `07` Input Validation
+# 7. Validación de entrada
 
-Escenario: Email de registro de usuario. Solicita email y valida formato; si es invalido, pedir de nuevo; si es valido, continuar y terminar.
+## :movie_camera: Escenario
+Registro de usuario. Pide el email y comprueba su formato. Si no es válido, muestra un error y vuelve a pedirlo. Si es válido, continúa el registro y termina.
 
 ## :memo: Instrucciones
-1. Abre `app.js` en esta carpeta del ejercicio.
-2. Usa la app https://waficmikati.github.io/mermaid/ para crear tu diagrama Mermaid.
-3. Alinea los nodos clave y las condiciones de rama con la rubrica; se aceptan estructuras de conexiones equivalentes si se preserva la logica del flujo.
-4. No renombres `answer` ni `module.exports` en `app.js`.
+1. Abre `app.js` en la carpeta de este ejercicio.
+2. Usa este **[Editor Mermaid](https://waficmikati.github.io/mermaid/)** para crear tu diagrama.
+3. Pega el código Mermaid dentro de `answer`. No cambies el nombre de `answer` ni de `module.exports` en `app.js`.
 
-## :bulb: Pista
-- Tu grafo debe incluir estos conceptos clave: inicio (start), entrada (input), valido (valid), invalido (invalid), fin (end).
-- Busca tener al menos 5 conexiones antes de correr tests.
-- Usa etiquetas de rama exactamente como se esperan (acepta sinonimos): valido (valid), invalido (invalid).
-- Manten nombres y etiquetas simples para que coincidan con el validador.
+## :mag: Cómo se revisa tu diagrama
+Los tests prueban un email válido al primer intento, y también uno, dos o tres emails no válidos antes de uno válido. Tu flujo debe volver a pedirlo después de cada email no válido y terminar después de uno válido. Para que se pueda leer cada caja:
+- Incluye una caja que pida el email, por ejemplo **Pedir email**. La flecha de "intentar de nuevo" debe volver a esta caja.
+- Escribe la decisión como **`¿Email válido?`** con flechas **Sí** y **No** (o **Válido** e **Inválido**).
+- Una caja de error (por ejemplo **Mostrar error: email inválido**) solo debe aparecer después de un email no válido, y una caja de éxito (por ejemplo **Continuar el registro**) solo después de uno válido.
