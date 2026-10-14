@@ -1,18 +1,12 @@
-/*
-Edit only the Mermaid flow inside `answer`.
-Keep this shape: const answer = `...`; module.exports = answer.trim();
----
-Edita solo el flujo Mermaid dentro de `answer`.
-Manten esta forma: const answer = `...`; module.exports = answer.trim();
-*/
 const answer = `
-flowchart LR
-    A["start"] --> B["Price"]
-    B["Price"] --> C{"loop - Are there more products?"}
-    C{"loop - Are there more products?"} -->|Yes| D["Add Price to Total"]
-    D["Add Price to Total"] --> B["Price"]
-    C{"loop - Are there more products?"} -->|No| E["output - Show Total"]
-    E["output - Show Total"] --> F["end - Purchase End"]
+flowchart TD
+    A(["Start"]) --> B["total = 0"]
+    B["total = 0"] --> C{"More items?"}
+    C{"More items?"} -->|"Yes"| D["Read price"]
+    D["Read price"] --> E["total = total + price"]
+    E["total = total + price"] --> C{"More items?"}
+    C{"More items?"} -->|"No"| F["Show total"]
+    F["Show total"] --> G(["End"])
 `;
 
 module.exports = answer.trim();

@@ -1,84 +1,182 @@
 {
-    "rubric_version": 2,
-    "strict_edges": false,
-    "required_nodes": [
-        "start",
-        "locked",
-        "unlocked",
-        "output",
-        "end"
-    ],
-    "required_edges": [
-        [
-            "A",
-            "B"
-        ],
-        [
-            "B",
-            "C"
-        ],
-        [
-            "B",
-            "B"
-        ],
-        [
-            "C",
-            "D"
-        ],
-        [
-            "C",
-            "C"
-        ],
-        [
-            "D",
-            "B"
-        ],
-        [
-            "B",
-            "E"
-        ]
-    ],
-    "required_conditions": [
-        "event: coin",
-        "event: push"
-    ],
-    "required_paths": [
-        [
-            "A",
-            "E"
-        ],
-        [
-            "C",
-            "D",
-            "B"
-        ]
-    ],
-    "required_cycles": [
-        "B",
-        "C"
-    ],
-    "forbidden_patterns": [],
-    "min_steps": 7,
-    "accepted_synonyms": {
-        "locked": [
-            "bloqueado"
-        ],
-        "unlocked": [
-            "desbloqueado"
-        ],
-        "output": [
-            "allow pass / rotate",
-            "allow pass",
-            "rotate",
-            "permitir paso"
-        ],
-        "coin": [
-            "moneda",
-            "ficha"
-        ],
-        "push": [
-            "empujar",
-            "empuje"
-        ]
+  "rubric_version": 4,
+  "min_nodes": 4,
+  "loops": {
+    "min": 1
+  },
+  "mentions": [
+    {
+      "about": "the locked and unlocked states",
+      "examples": [
+        "Locked",
+        "Unlocked"
+      ],
+      "stems": [
+        "lock",
+        "unlock",
+        "bloque",
+        "desbloque",
+        "cerr",
+        "abier",
+        "close",
+        "open"
+      ],
+      "about_es": "los estados bloqueado y desbloqueado",
+      "examples_es": [
+        "Bloqueado",
+        "Desbloqueado"
+      ]
     }
+  ],
+  "strict": {
+    "inputs": {
+      "event": {
+        "type": "event",
+        "options": [
+          "coin",
+          "push"
+        ],
+        "ask_words": [
+          "event",
+          "events",
+          "evento",
+          "eventos",
+          "input",
+          "entrada",
+          "action",
+          "accion",
+          "coin or push",
+          "push or coin",
+          "moneda o empuje",
+          "moneda o empujar"
+        ],
+        "words": [
+          "event",
+          "evento",
+          "input",
+          "action",
+          "accion",
+          "coin",
+          "push",
+          "moneda",
+          "empuj"
+        ],
+        "say": "{v}",
+        "name_es": "el evento",
+        "options_es": {
+          "coin": "moneda",
+          "push": "empujar"
+        },
+        "name": "event"
+      }
+    },
+    "classes": [
+      {
+        "name": "nopass",
+        "says": "nobody passes",
+        "says_es": "nadie pasa",
+        "words": [
+          "refused",
+          "refuse",
+          "denied",
+          "deny",
+          "blocked",
+          "rechaz",
+          "no entry",
+          "remains closed",
+          "stays closed",
+          "sigue cerrad"
+        ]
+      },
+      {
+        "name": "pass",
+        "says": "a person passes",
+        "words": [
+          "pass",
+          "passes",
+          "through",
+          "rotat",
+          "gira",
+          "girar",
+          "paso",
+          "pasa",
+          "pasar",
+          "cross",
+          "cruza",
+          "entra",
+          "entrar",
+          "enter",
+          "let in",
+          "allow",
+          "permit",
+          "walk",
+          "walks",
+          "thru",
+          "goes through",
+          "go through"
+        ],
+        "negated": "none",
+        "says_es": "pasa una persona"
+      }
+    ],
+    "count_class": "pass",
+    "states": {
+      "locked": [
+        "locked",
+        "lock",
+        "bloqueado",
+        "bloqueada",
+        "bloquea",
+        "cerrado",
+        "cerrada"
+      ],
+      "unlocked": [
+        "unlocked",
+        "unlock",
+        "desbloqueado",
+        "desbloqueada",
+        "desbloquea",
+        "abierto",
+        "abierta"
+      ]
+    },
+    "check": {
+      "type": "events",
+      "max_len": 5,
+      "reference": {
+        "start": "locked",
+        "on": {
+          "locked": {
+            "coin": [
+              "unlocked"
+            ],
+            "push": [
+              "locked"
+            ]
+          },
+          "unlocked": {
+            "coin": [
+              "unlocked"
+            ],
+            "push": [
+              "locked",
+              true
+            ]
+          }
+        }
+      }
+    },
+    "examples": {
+      "decision": "\"Event?\" with arrows labelled Coin and Push",
+      "result": "\"Person passes\""
+    },
+    "examples_es": {
+      "decision": "\"¿Evento?\" con flechas Moneda y Empujar",
+      "result": "\"La persona pasa\""
+    },
+    "state_names_es": {
+      "locked": "bloqueado",
+      "unlocked": "desbloqueado"
+    }
+  }
 }

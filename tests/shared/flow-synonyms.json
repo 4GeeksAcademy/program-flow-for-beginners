@@ -1,0 +1,111 @@
+{
+  "start": [
+    "start",
+    "inicio",
+    "comienzo",
+    "begin",
+    "empezar",
+    "iniciar"
+  ],
+  "yes": [
+    "yes",
+    "y",
+    "si",
+    "true",
+    "verdadero",
+    "valid",
+    "valido",
+    "correct",
+    "correcto",
+    "ok",
+    "approved",
+    "aprobado",
+    "allowed",
+    "permitido",
+    "more",
+    "mas"
+  ],
+  "no": [
+    "no",
+    "n",
+    "not",
+    "false",
+    "falso",
+    "invalid",
+    "invalido",
+    "incorrect",
+    "incorrecto",
+    "wrong",
+    "denied",
+    "rejected",
+    "rechazado",
+    "fail",
+    "failed",
+    "else",
+    "otherwise"
+  ],
+  "green": [
+    "green",
+    "verde",
+    "verdes"
+  ],
+  "yellow": [
+    "yellow",
+    "amarillo",
+    "amber",
+    "ambar",
+    "amarilla"
+  ],
+  "red": [
+    "red",
+    "rojo",
+    "roja",
+    "rojos",
+    "rojas"
+  ],
+  "coin": [
+    "coin",
+    "coins",
+    "moneda",
+    "ficha"
+  ],
+  "push": [
+    "push",
+    "pushes",
+    "empujar",
+    "empuje",
+    "empuja"
+  ],
+  "end": [
+    "end",
+    "fin",
+    "final",
+    "finish",
+    "finished",
+    "termina",
+    "terminar",
+    "fim",
+    "done",
+    "exit",
+    "salir",
+    "stop",
+    "terminate",
+    "terminated",
+    "conclude",
+    "concluded",
+    "concludes",
+    "cease",
+    "ceases",
+    "goodbye",
+    "bye",
+    "adios",
+    "finalizar",
+    "finaliza",
+    "finalizado",
+    "acabar",
+    "acaba",
+    "termino",
+    "terminado",
+    "salida"
+  ]
+}

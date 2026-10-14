@@ -15,5 +15,5 @@ Edit only `app.js` inside each exercise folder.
 ## :bulb: Tips
 - You do not need to master Mermaid syntax in this tutorial.
 - Focus on the logic requested by each exercise.
-- If tests fail, compare your result with `rubric.json`.
+- The tests run your diagram like a program. If one fails, its message names the box to fix and how.
 - You can refer to the Mermaid Flowchart syntax here: **[Official Mermaid Docs](https://mermaid.ai/open-source/syntax/flowchart.html)**

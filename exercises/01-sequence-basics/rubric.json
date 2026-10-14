@@ -1,39 +1,94 @@
 {
-    "rubric_version": 2,
-    "strict_edges": false,
-    "required_nodes":  [
-                           "start",
-                           "end"
-                       ],
-    "required_edges":  [
-                           [
-                               "A",
-                               "B"
-                           ],
-                           [
-                               "B",
-                               "C"
-                           ],
-                           [
-                               "C",
-                               "D"
-                           ]
-                       ],
-    "required_conditions":  [
-
-                            ],
-    "required_paths": [
-                           [
-                               "A",
-                               "D"
-                           ]
-                       ],
-    "forbidden_patterns":  [
-                               "while",
-                               "for"
-                           ],
-    "min_steps":  3,
-    "accepted_synonyms":  {
-
-                          }
+  "rubric_version": 4,
+  "min_nodes": 4,
+  "decisions": {
+    "max": 0
+  },
+  "loops": {
+    "max": 0
+  },
+  "mentions": [
+    {
+      "about": "what you're making (the coffee)",
+      "examples": [
+        "boil water",
+        "brew coffee"
+      ],
+      "stems": [
+        "coffee",
+        "cafe",
+        "water",
+        "agua",
+        "boil",
+        "hierv",
+        "herv",
+        "brew",
+        "pour",
+        "serv",
+        "cup",
+        "taza",
+        "kettle",
+        "tetera",
+        "filter",
+        "filtro",
+        "grind",
+        "moler",
+        "prepar"
+      ],
+      "about_es": "lo que estás preparando (el café)",
+      "examples_es": [
+        "hervir agua",
+        "preparar el café"
+      ]
+    }
+  ],
+  "order": [
+    {
+      "first": [
+        "boil",
+        "hierv",
+        "herv",
+        "heat",
+        "calent",
+        "kettle",
+        "tetera",
+        "water",
+        "agua"
+      ],
+      "then": [
+        "brew",
+        "prepar",
+        "pour",
+        "verter",
+        "sirv",
+        "serv",
+        "make",
+        "hacer",
+        "haz",
+        "colar",
+        "cuela"
+      ],
+      "fail": "Check the order: the water has to be heated before you brew or serve.",
+      "fail_es": "Revisa el orden: el agua tiene que calentarse antes de preparar o servir el café."
+    },
+    {
+      "first": [
+        "brew",
+        "prepar",
+        "grind",
+        "moler",
+        "make",
+        "hacer",
+        "haz",
+        "colar",
+        "cuela"
+      ],
+      "then": [
+        "serv",
+        "sirv"
+      ],
+      "fail": "Check the order: brew the coffee before serving it.",
+      "fail_es": "Revisa el orden: prepara el café antes de servirlo."
+    }
+  ]
 }

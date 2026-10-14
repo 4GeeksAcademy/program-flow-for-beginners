@@ -1,69 +1,120 @@
 {
-    "rubric_version": 2,
-    "strict_edges": false,
-    "required_nodes":  [
-                           "start",
-                           "input",
-                           "loop",
-                           "output",
-                           "end"
-                       ],
-    "required_edges":  [
-                           [
-                               "A",
-                               "B"
-                           ],
-                           [
-                               "B",
-                               "C"
-                           ],
-                           [
-                               "C",
-                               "D"
-                           ],
-                           [
-                               "D",
-                               "E"
-                           ],
-                           [
-                               "E",
-                               "C"
-                           ],
-                           [
-                               "C",
-                               "F"
-                           ],
-                           [
-                               "F",
-                               "G"
-                           ]
-                       ],
-    "required_conditions":  [
-                                "yes",
-                                "no"
-                            ],
-    "required_paths": [
-                           [
-                               "A",
-                               "G"
-                           ]
-                       ],
-    "required_cycles": [
-                            [
-                                "C",
-                                "D",
-                                "E"
-                            ]
-                        ],
-    "forbidden_patterns":  [
-
-                           ],
-    "min_steps":  7,
-    "accepted_synonyms":  {
-                              "input": [
-                                  "tasks list",
-                                  "task list",
-                                  "lista de tareas"
-                              ]
-                          }
+  "rubric_version": 4,
+  "min_nodes": 5,
+  "loops": {
+    "min": 1
+  },
+  "branching": [
+    {
+      "branches": [
+        "yes",
+        "no"
+      ],
+      "in_loop": true
+    }
+  ],
+  "mentions": [
+    {
+      "about": "the assignments being graded",
+      "examples": [
+        "grade assignment",
+        "next assignment"
+      ],
+      "stems": [
+        "assign",
+        "task",
+        "tarea",
+        "grade",
+        "grading",
+        "nota",
+        "calific",
+        "homework",
+        "deber",
+        "exam",
+        "trabajo",
+        "entrega",
+        "evalua",
+        "score",
+        "puntu",
+        "mark"
+      ],
+      "about_es": "las tareas que se califican",
+      "examples_es": [
+        "calificar tarea i"
+      ]
+    }
+  ],
+  "step_after_loop": true,
+  "strict": {
+    "inputs": {},
+    "classes": [
+      {
+        "name": "summary",
+        "says": "the summary is shown",
+        "words": [
+          "summary",
+          "resumen",
+          "show",
+          "display",
+          "print",
+          "output",
+          "report",
+          "average",
+          "promedio",
+          "results",
+          "resultado",
+          "muestra",
+          "mostrar",
+          "imprimir",
+          "imprime"
+        ],
+        "says_es": "se muestra el resumen"
+      }
+    ],
+    "check": {
+      "type": "counter",
+      "times": 5,
+      "summary": "summary",
+      "says": "grading 5 assignments",
+      "summary_words": [
+        "summary",
+        "resumen",
+        "report",
+        "reporte",
+        "average",
+        "promedio",
+        "results",
+        "resultados",
+        "final grades",
+        "notas finales"
+      ],
+      "says_es": "calificar 5 tareas",
+      "step_words": [
+        "grade",
+        "grading",
+        "calif",
+        "process",
+        "procesa",
+        "review",
+        "revis",
+        "check",
+        "evaluat",
+        "evalua",
+        "mark",
+        "score",
+        "correg",
+        "corrig",
+        "puntu",
+        "nota"
+      ]
+    },
+    "examples": {
+      "decision": "\"i <= 5?\" (with i = 1 before the loop and i = i + 1 inside it)",
+      "result": "\"Show summary\""
+    },
+    "examples_es": {
+      "decision": "\"¿i <= 5?\" (con i = 1 antes del bucle e i = i + 1 dentro)",
+      "result": "\"Mostrar resumen\""
+    }
+  }
 }
